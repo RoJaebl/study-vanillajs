@@ -1,17 +1,16 @@
 /**
- * const 사용
- * // name.obj = "JavaScript"
+ * 작성한 소스코드
  */
-const name = {
-  obj: "JavaScript",
-};
+console.log(name);
+// < undefined
+var name = "JavaScript";
 
 /**
- * error : `name` can't data changed
+ * 인터프리터된 소스코드
+ * hoisting으로인해 아래와 같은 코드로 변역되어 실행이 되는것이다.
+ * 결국 console은 데이터가 없고 선언만 된 변수를 출력하는 결과를 낳는다.
  */
+var name;
+conseloe.log(name);
+// < undefined
 name = "JavaScript";
-
-/**
- * // name.obj = "TypeScript"
- */
-name.obj = "TypeScript";

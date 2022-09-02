@@ -1,25 +1,58 @@
+/// generic function
 /**
- * scope 안에서 선언된 var 변수는
- * scope 밖에 있는 console이 hello변수에 접근이 가능하다.
+ * 일반적인 함수 선언
  */
-if (true) {
-  var hello1 = "hello1";
-}
-console.log(hello1);
+function nameOf(params) {}
 
 /**
- * scope 안에서 선언된 let, const 변수는
- * scope 밖에 있는 console이 hello변수에 접근이 불가능하다.
+ * 익명함수 선언
  */
-if (true) {
-  let hello2 = "hello2";
-}
-console.log(hello2);
+function (params){};
 
 /**
- * function scope에서 var은 let과 const와 규칙이 동일하다.
+ * 변수함수 선언
  */
-function hello() {
-  var hello3 = "hello3";
+const variable1 = function (params) {};
+
+/// arrow function
+/// `=>`이걸 arrow라고 부른다.
+/**
+ * 익명화살표 함수 선언
+ */
+(params) => {};
+
+/**
+ * 변수화살표 함수 선언
+ */
+const variable2 = (params) => {};
+
+
+/**
+ * 함수선언, 익명함수, 화살표 함수를 모두 구현한 소스.
+ */
+const names = ["nico", "lynn", "flynn"];
+
+function addHeart(item) {
+  return item + " 💖";
 }
-console.log(hello3);
+const hearts1 = names.map(addHeart);
+console.log(hearts1);
+
+const hearts2 = names.map(function (item) {
+  return item + " 💖";
+});
+console.log(hearts2);
+
+const hearts3 = names.map((item, index) => {
+  console.log(`we are on ${index}`);
+  return item + " 💖";
+});
+console.log(hearts3);
+
+/**
+ * implicit return of arrow function
+ * arrow function의 정의가 간단할 경우 impolicit return을 사용한다.
+ * return을 사용하지않고 데이터 반환이 된다.
+ */
+const hearts4 = names.map((item) => item + " 💖");
+console.log(hearts3);

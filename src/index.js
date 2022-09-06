@@ -1,15 +1,28 @@
-/**
- * @description `"Hello " + aName`이걸 template literals라고 부른다.
- * string form 앞뒤로 백틱``을 붙혀 쓰여진 모든 문자를 string으로 변환해준다.
- */
-const sayHi1 = (aName = "anon") => `Hello ${aName} lovely to have you`;
-// `"Hello " + aName + " lovely to have you"`;
-console.log(sayHi1());
+const wrapper = document.querySelector(".wrapper");
 
 /**
- * @description ${}안에 함수를 넣어 사용할 수 있다.
+ * template literal이 없었던 ES6이전에는 html에 elements를 추가할때 아래와 같이 작성하였따.
  */
-const sum = (a, b) => a + b;
-const sayHi2 = (aName = "anon") => `Hello ${sum(1, 2)} lovely to have you`;
-// `"Hello " + aName + " lovely to have you"`;
-console.log(sayHi2());
+const addWelcome1 = () => {
+  const div = document.createElement("div");
+  const h1 = document.createElement("h1");
+  h1.innerText = "Hello1";
+  h1.className = "sexyTitle";
+  div.append(h1);
+  wrapper.append(div);
+};
+
+setTimeout(addWelcome1, 1000);
+
+/**
+ * 백틱으로 html tag를 작성하고 넣기만하면 JS함수로 해줘야 했던 작업을 간단하게 건너뛸 수 있게 되었다.
+ */
+const addWelcome2 = () => {
+  const div = `
+  <div class="hello">
+    <h1 class="title">Hello2</h1>
+  </div>
+  `;
+  wrapper.innerHTML = div;
+};
+setTimeout(addWelcome2, 2000);

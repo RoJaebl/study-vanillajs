@@ -1,28 +1,16 @@
 const wrapper = document.querySelector(".wrapper");
 
 /**
- * template literal이 없었던 ES6이전에는 html에 elements를 추가할때 아래와 같이 작성하였따.
+ * 한가지 예제로 아래와 같이 array value를 백틱을 이용하여 손쉽게 HTML form을 작성할 수 있다.
+ * reactJS의 JSX도 백틱에서 파생된 syntax라는걸 알 수 있다.
  */
-const addWelcome1 = () => {
-  const div = document.createElement("div");
-  const h1 = document.createElement("h1");
-  h1.innerText = "Hello1";
-  h1.className = "sexyTitle";
-  div.append(h1);
-  wrapper.append(div);
-};
+const friends = ["me", "lynn", "dal", "mark"];
 
-setTimeout(addWelcome1, 1000);
+const list = `
+        <h1>People i love</h1>
+        <ul>
+            ${friends.map((friend) => `<li>${friend}</li>`).join("")}
+        </ul>
+`;
 
-/**
- * 백틱으로 html tag를 작성하고 넣기만하면 JS함수로 해줘야 했던 작업을 간단하게 건너뛸 수 있게 되었다.
- */
-const addWelcome2 = () => {
-  const div = `
-  <div class="hello">
-    <h1 class="title">Hello2</h1>
-  </div>
-  `;
-  wrapper.innerHTML = div;
-};
-setTimeout(addWelcome2, 2000);
+wrapper.innerHTML = list;

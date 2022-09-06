@@ -1,48 +1,53 @@
 /**
- * 객체가 정의한 함수내에서 this를 사용하면 인스턴스의 정보를 가져올 수 있다.
+ * arrow function으로 코드를 이쁘게 짜는 예제소스이다.
  */
-const button1 = document.querySelector("button");
-
-button1.addEventListener("click", function () {
-  console.log(this);
-  this.style.backgroundColor = "tomato";
-});
+const emails = [
+  "nco@no.com",
+  "naver@google.com",
+  "lynn@gmail.com",
+  "nico@nomad.com",
+  "nico@gmail.com",
+];
 
 /**
- * arrow function으로 callback 인수로 전달하면 this는 Window정보를 가져온다.
+ * find
+ * 제공된 인수가 조건부 참이면 처음 찾은 요소를 반환
  */
-const button2 = document.querySelector("button");
-
-button2.addEventListener("click", () => {
-  console.log(this);
-  this.style.backgroundColor = "tomato";
-});
+const foundMail = emails.find((item) => item.includes("@gmail.com"));
+console.log(foundMail);
 
 /**
- * 어떠한 정의로든 arrow function으로 객체의 정보를 담을 수 없다.
+ * filter
+ * 제공된 인수가 조건부 참이면 새로운 배열 생성
  */
-const person1 = {
-  name: "Nico",
-  age: 24,
-  addYear: () => {
-    this.age++;
-  },
-};
+const noGmail = emails.filter((email) => !email.includes("@gmail"));
+console.log(noGmail);
 
-console.log(person1);
-person1.addYear();
-person1.addYear();
-console.log(person1);
+/**
+ * forEeach
+ * 제공된 인수만큼 인수의 요소를 차례로 접근
+ */
+const cleaned1 = [];
+emails.forEach((email) => {
+  cleaned1.push(email.split("@")[0]);
+});
+console.log(cleaned1);
 
-const person2 = {
-  name: "Nico",
-  age: 24,
-  addYear: function () {
-    this.age++;
-  },
-};
-
-console.log(person2);
-person2.addYear();
-person2.addYear();
-console.log(person2);
+/**
+ * map
+ * forEach와 같이 제공된 인수만큼 인수의 요소에 차례로 접근한다.
+ * 또한 주어진 조건에 맞추어 새로운 배열을 생성한다.
+ */
+const cleaned2 = emails.map((email) => email.split("@")[0]);
+console.log(cleaned2);
+/**
+ * 추가로 오브젝트형태로 배열을 반환하는 방법은 아래와 같다
+ * @description 오브젝트 형태인 {}로 생성해야하지만 JS규칙으로 return을 사용해야하는 scope로 되어버린다.
+ * @example const cleaned3 = emails.map((email, index) => {username: email.split("@")[0], index;});
+ * @description 그래서 오브젝트를 반환하기위해 대괄호로 오브젝트를 품으면 오브젝트로 배열이 만들어진다.
+ */
+const cleaned3 = emails.map((email, index) => ({
+  username: email.split("@")[0],
+  index,
+}));
+console.table(cleaned3);

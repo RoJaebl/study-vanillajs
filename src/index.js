@@ -1,25 +1,33 @@
 /**
- * @description includes
- * 제공된 인수가 객체에 포함하는지 검사하는 함수이다. 있으면 true, 아니면 false반환
+ * friends를 정의하는거와 Array.of는 동일한 동작을 한다.
  */
-const isEmail = (email) => email.includes("@");
-console.log(isEmail(`nico@nomadcoders.co`));
+const friends = ["nico", "lynn", "dal", "mark"];
+const friends1 = Array.of("nico", "lynn", "dal", "mark");
+console.log(friends1);
 
 /**
- * @description repaet
- * 반복하고자하는 string을 생성하는 함수이다.
+ * HTML의 elements를 가져오면 array를 흉내낸 NodeList가 나온다.
+ */
+const buttons = document.querySelectorAll("button");
+console.log(buttons);
+
+/**
+ * btns도 마찬가지로 array를 흉내낸 HTMLCollection이 나온다.
+ */
+const btns = document.getElementsByClassName("btn");
+console.log(btns);
+
+/**
+ * NodeList와 HTMLCollection은 array를 흉내낸 `array-like object`이며 array가 아니다.
+ * 그래서 이론상 array로 접근 가능한 함수들을 사용하면 에러가 발생한다.
+ * 그리고 array-like를 array를 변환해주는 함수인 `Array.from()`으로 변환한다.
  * @example
- * "*".repeat(10)
- * // "**********"
+ * btns.forEach((btn) => {
+ *   btn.addEventListener("click", () => console.log("I ve been clicked"));
+ * });
+ * @description
+ * 그래서 array함수를 사용하기위해 from을 사용하여 array-like를 변환 후 사용한다.
  */
-const CC_NUMBER = "6060";
-const displayName = `${"*".repeat(10)}${CC_NUMBER}`;
-console.log(displayName);
-
-/**
- * @description `startsWith`
- * 제공된 인수가 string의 처음시작하는 부분과 맞으면 true, 아니면 false반환
- * 보통 유효성 검사에 많이 쓰이며 `endsWith` 함수도 함께 있다.
- */
-const name = `Mr. Nicolas`;
-console.log(name.startsWith("Mr"));
+Array.from(btns).forEach((btn) => {
+  btn.addEventListener("click", () => console.log("I ve been clicked"));
+});

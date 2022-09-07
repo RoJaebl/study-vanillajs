@@ -1,33 +1,60 @@
-/**
- * friends를 정의하는거와 Array.of는 동일한 동작을 한다.
- */
-const friends = ["nico", "lynn", "dal", "mark"];
-const friends1 = Array.of("nico", "lynn", "dal", "mark");
-console.log(friends1);
+const friends1 = [
+  "nico@gmail.com",
+  "lynn@naver.com",
+  "dal@yahoo.com",
+  "mark@hotmail.com",
+  "flynn@gorea.com",
+];
 
 /**
- * HTML의 elements를 가져오면 array를 흉내낸 NodeList가 나온다.
+ * find는 처음 true로 트리거된 요소를 반환한다.
  */
-const buttons = document.querySelectorAll("button");
-console.log(buttons);
+const target1 = friends1.find((friend) => friend.includes("@gorea.com"));
+console.log(target1);
 
 /**
- * btns도 마찬가지로 array를 흉내낸 HTMLCollection이 나온다.
+ * findIndex는 처음 true로 트리거된 요소의 인덱스 위치를 반환한다.
+ * 아래는 @gorea.com을 찾아서 @korea.com으로 데이터를 변환하는 소스이다.
  */
-const btns = document.getElementsByClassName("btn");
-console.log(btns);
+const check1 = () =>
+  friends1.findIndex((friend) => friend.includes("@gorea.com"));
+let target2 = check1();
+
+if (target2 !== -1) {
+  console.log(target2);
+
+  const username = friends1[target2].split("@")[0];
+  const email = "korea.com";
+  friends1[target2] = `${username}@${email}`;
+  target2 = check1();
+}
+
+console.log(target2);
 
 /**
- * NodeList와 HTMLCollection은 array를 흉내낸 `array-like object`이며 array가 아니다.
- * 그래서 이론상 array로 접근 가능한 함수들을 사용하면 에러가 발생한다.
- * 그리고 array-like를 array를 변환해주는 함수인 `Array.from()`으로 변환한다.
- * @example
- * btns.forEach((btn) => {
- *   btn.addEventListener("click", () => console.log("I ve been clicked"));
- * });
- * @description
- * 그래서 array함수를 사용하기위해 from을 사용하여 array-like를 변환 후 사용한다.
+ * fill은 첫번째 주어진 인수로 array를 새롭개 생성하는 함수이다.
  */
-Array.from(btns).forEach((btn) => {
-  btn.addEventListener("click", () => console.log("I ve been clicked"));
-});
+const friends2 = [
+  "nico@gmail.com",
+  "lynn@naver.com",
+  "dal@yahoo.com",
+  "mark@hotmail.com",
+  "flynn@gorea.com",
+];
+const check2 = () =>
+  friends2.findIndex((friend) => friend.includes("@gorea.com"));
+let target3 = check2();
+
+if (target3 !== -1) {
+  friends2.fill("*".repeat(5), target3);
+}
+
+friends2.fill("*".repeat(5), 1, 3);
+
+console.log(friends2);
+
+/**
+ * includes는 전달된 인자가 array에 있으면 true, 없으면 false를 반환한다.
+ * 주로 array에 해당 인자가 있는지 확인할 때 쓰인다.
+ */
+console.log(friends2.includes("nico@gmail.com"));

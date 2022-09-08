@@ -1,24 +1,30 @@
 /**
- * Array destructuring를 사용하기전 array 앞 세개의 값을 가져오기 위해선
- * 아래와 같이 코드를 구현해야 했었다.
+ * 외부 API로부터 데이터를 아래와 같이 받아왔는데 요소의 이름이
+ * 마음에 안들면 `콜론:`을 붙혀 rename을 해줄 수 있다.
  */
-const days1 = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const day = days1.filter((day, index) => {
-  return index < 3 ? true : false;
-});
-console.log(day);
+const settings = {
+  color: {
+    chosen_color: "dark",
+  },
+};
+
+const {
+  color: { chosen_color: chosenColor1 = "light" },
+} = settings;
+
+console.log(chosenColor1);
 
 /**
- * Array destructuring를 사용하는 이후로 전달된 array 요소 갯수 이하만큼
- * 원하는 값을 변수를 선언하여 사용할 수 있다.
- * 물론 default value도 넣어서 array에 없는 값을 변수를 선언하여 사용할 수 있다.
+ * object destructuring은 let으로도 선언할 수 있지만 따로 변수를
+ * 선언하여 destructuring을 사용하는 방법으로는 destructuring에
+ * `소괄호()`를 붙혀 따로 선언한 변수를 renmae으로 사용하는 것이다.
+ * 그러면 선언한 변수는 rename에 들어가는 데이터로 값이 바뀐걸 볼 수
+ * 있다.
  */
-const days2 = ["Mon", "Tue", "Wed"];
-const [mon2, tue2, wed2, thu2 = "Thu"] = days2;
-console.log(mon2, tue2, wed2, thu2);
-/**
- * 일반함수나 arrow function으로도 array destructuring을 사용할 수 있다.
- */
-const days3 = () => ["Mon", "Tue", "Wed"];
-const [mon3, tue3, wed3, thu3] = days3();
-console.log(mon3, tue3, wed3, thu3);
+let chosenColor2 = "blue";
+console.log(chosenColor2);
+
+({
+  color: { chosen_color: chosenColor2 = "light" },
+} = settings);
+console.log(chosenColor2);

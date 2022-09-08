@@ -1,50 +1,24 @@
 /**
- * ES6전 object요소를 사용하기위해 if문에 변수의 요소를 접근하는 방식을 사용했다.
- * @exampl
- * if(settings1.notifications.follow1){
- * send email code...
- * }
+ * Array destructuring를 사용하기전 array 앞 세개의 값을 가져오기 위해선
+ * 아래와 같이 코드를 구현해야 했었다.
  */
-const settings1 = {
-  notifications1: {
-    follow1: true,
-    alerts: true,
-    unfollow: false,
-  },
-  color1: {
-    theme: "dark",
-  },
-};
-
-if (settings1.notifications1.follow1) {
-  // send email
-}
+const days1 = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const day = days1.filter((day, index) => {
+  return index < 3 ? true : false;
+});
+console.log(day);
 
 /**
- * destructuring을 사용하면 아래와 같이 변수를 오브젝트 형식으로 선언하고
- * object요소 이름을 변수로 사용한다.
- * @decription
- * destructuring의 변수가 되는 기준은 마지막 요소이다.
+ * Array destructuring를 사용하는 이후로 전달된 array 요소 갯수 이하만큼
+ * 원하는 값을 변수를 선언하여 사용할 수 있다.
+ * 물론 default value도 넣어서 array에 없는 값을 변수를 선언하여 사용할 수 있다.
  */
-const {
-  notifications1: { follow1 },
-  color1,
-} = settings1;
-
-console.log(color1);
-
+const days2 = ["Mon", "Tue", "Wed"];
+const [mon2, tue2, wed2, thu2 = "Thu"] = days2;
+console.log(mon2, tue2, wed2, thu2);
 /**
- * settings2에 notifications이 없다면 `one-line-statement`를 이용하여
- * notifications를 defualt value를 만들고 follow를 default값을 준다.
- * settings2에 notifications라는 object가 없어도 destructuring이
- * 되는걸 볼 수 있다.
- * @exsampl
- * const { notifications: { follow = true } = {} } = settings2;
+ * 일반함수나 arrow function으로도 array destructuring을 사용할 수 있다.
  */
-const settings2 = {
-  color: {
-    theme: "dark",
-  },
-};
-const { notifications = { alerts: true } } = settings2;
-console.log(notifications);
+const days3 = () => ["Mon", "Tue", "Wed"];
+const [mon3, tue3, wed3, thu3] = days3();
+console.log(mon3, tue3, wed3, thu3);

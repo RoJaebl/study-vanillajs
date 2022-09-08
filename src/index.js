@@ -1,60 +1,50 @@
-const friends1 = [
-  "nico@gmail.com",
-  "lynn@naver.com",
-  "dal@yahoo.com",
-  "mark@hotmail.com",
-  "flynn@gorea.com",
-];
-
 /**
- * find는 처음 true로 트리거된 요소를 반환한다.
+ * ES6전 object요소를 사용하기위해 if문에 변수의 요소를 접근하는 방식을 사용했다.
+ * @exampl
+ * if(settings1.notifications.follow1){
+ * send email code...
+ * }
  */
-const target1 = friends1.find((friend) => friend.includes("@gorea.com"));
-console.log(target1);
+const settings1 = {
+  notifications1: {
+    follow1: true,
+    alerts: true,
+    unfollow: false,
+  },
+  color1: {
+    theme: "dark",
+  },
+};
 
-/**
- * findIndex는 처음 true로 트리거된 요소의 인덱스 위치를 반환한다.
- * 아래는 @gorea.com을 찾아서 @korea.com으로 데이터를 변환하는 소스이다.
- */
-const check1 = () =>
-  friends1.findIndex((friend) => friend.includes("@gorea.com"));
-let target2 = check1();
-
-if (target2 !== -1) {
-  console.log(target2);
-
-  const username = friends1[target2].split("@")[0];
-  const email = "korea.com";
-  friends1[target2] = `${username}@${email}`;
-  target2 = check1();
+if (settings1.notifications1.follow1) {
+  // send email
 }
 
-console.log(target2);
+/**
+ * destructuring을 사용하면 아래와 같이 변수를 오브젝트 형식으로 선언하고
+ * object요소 이름을 변수로 사용한다.
+ * @decription
+ * destructuring의 변수가 되는 기준은 마지막 요소이다.
+ */
+const {
+  notifications1: { follow1 },
+  color1,
+} = settings1;
+
+console.log(color1);
 
 /**
- * fill은 첫번째 주어진 인수로 array를 새롭개 생성하는 함수이다.
+ * settings2에 notifications이 없다면 `one-line-statement`를 이용하여
+ * notifications를 defualt value를 만들고 follow를 default값을 준다.
+ * settings2에 notifications라는 object가 없어도 destructuring이
+ * 되는걸 볼 수 있다.
+ * @exsampl
+ * const { notifications: { follow = true } = {} } = settings2;
  */
-const friends2 = [
-  "nico@gmail.com",
-  "lynn@naver.com",
-  "dal@yahoo.com",
-  "mark@hotmail.com",
-  "flynn@gorea.com",
-];
-const check2 = () =>
-  friends2.findIndex((friend) => friend.includes("@gorea.com"));
-let target3 = check2();
-
-if (target3 !== -1) {
-  friends2.fill("*".repeat(5), target3);
-}
-
-friends2.fill("*".repeat(5), 1, 3);
-
-console.log(friends2);
-
-/**
- * includes는 전달된 인자가 array에 있으면 true, 없으면 false를 반환한다.
- * 주로 array에 해당 인자가 있는지 확인할 때 쓰인다.
- */
-console.log(friends2.includes("nico@gmail.com"));
+const settings2 = {
+  color: {
+    theme: "dark",
+  },
+};
+const { notifications = { alerts: true } } = settings2;
+console.log(notifications);

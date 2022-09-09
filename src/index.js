@@ -1,14 +1,35 @@
 /**
- * Rest는 단지 함수 파라미터에 spread랑 같은 문법인 `...`을 넣으면 된다.
- * 제공된 인수가 여러개일때 인수를 array로 변환하여 사용한다.
+ * killPassword의 정의를 `desturcturing과 rest을 이용`하여 password
+ * 요소를 제외하고 오브젝트를 반환한다.
+ * @description
+ * `desturcturing + rest`
  */
-const infiniteArgs = (...args) => console.log(args);
-
-infiniteArgs("1", 2, true, "alala", [1, 2, 3, 4]);
-
-const bestFriendMaker = (firstOne, ...args) => {
-  console.log(`My best friend is ${firstOne}`);
-  console.log(args);
+const user = {
+  name: "nico",
+  age: 24,
+  password: 12345,
 };
 
-bestFriendMaker("nico", "lynn", "dal", "mark");
+user["password"] = null;
+console.log(user);
+
+const killPassword = ({ password, ...args }) => args;
+const cleanUser = killPassword(user);
+console.log(cleanUser);
+
+/**
+ * 이번엔 desturcturing default value와 rest, spread르 이용하여
+ * 오브젝트 요소를 추가하였다.
+ */
+const setCountry = ({ country = "KR", ...args }) => ({ country, ...args });
+
+console.log(setCountry(user));
+console.log(setCountry({ country: "US", user }));
+console.log(setCountry({ country: "US", ...user }));
+
+/**
+ * 위의 예제에서 renamming을 추가한 하였다.
+ */
+const rename = ({ name: Name, ...args }) => ({ Name, ...args });
+
+console.log(rename(user));

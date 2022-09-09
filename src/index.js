@@ -1,36 +1,21 @@
 /**
- * value shorthands는 오브젝트의 요소값을 변수를 지정할때 요소의
- * 이름과 변수의 이름을 같게 사용하고 싶을때 사용한다.
+ * array destructuring으로 손쉽게 변수를 서로 교환할 수 있다.
+ * swap하고자하는 변수를 array를 만들고 destructuring을 이용하여
+ * 값을 서로 바꾸는 것이다.
+ * @decription
+ * [sat, mon] = [mon, sat] => [sat, mon] = ["Sat", "Mon"]
  */
-const follow = checkFollow();
-const alert = checkAlert();
+let mon = "Sat";
+let sat = "Mon";
+
+[sat, mon] = [mon, sat];
 
 /**
- * 위의 변수이름을 아래 오브젝트 요소의 값으로 넣고있다.
+ * array destructuring으로 array의 어느 중간 부분을 가지고 오고
+ * 싶다면 array destructuring에 `콤마,`를 체워 원하는 위치를
+ * 변수로 선언한다.
  */
-const settings1 = {
-  notificationss: {
-    follow: follow,
-    alert: alert,
-  },
-};
+const days = ["mon", "tue", "wed", "thu", "fir", "sat", "sun"];
 
-/**
- * shorthand property를 이용하여 요소이름과 변수이름을 합쳐서
- * 요소이름과 값을 동시에 정의한다.
- */
-const settings2 = {
-  notificationss: {
-    follow,
-    alert,
-  },
-};
-/**
- * 물론 요소이름을 변수이름과 다르게 하여 사용할 수 있다.
- */
-const settings3 = {
-  notificationss: {
-    isFollow: follow,
-    isAlert: alert,
-  },
-};
+const [, , , thu, fir] = days;
+console.log(thu, fir);

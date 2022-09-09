@@ -1,43 +1,36 @@
 /**
- * object로 함수 인자로 전달하는 것은 매우 불안정 하다. 전달된 인수의
- * 요소를 가지고 기능을 구현한다는 가정하에 함수를 호출하는데 해당
- * 요소가 없다면 에러가 발생할 것이다.
+ * value shorthands는 오브젝트의 요소값을 변수를 지정할때 요소의
+ * 이름과 변수의 이름을 같게 사용하고 싶을때 사용한다.
  */
-function saveSettings1(settings) {
-  if (!settings.mrkAler) {
-  }
-  const saveColor = (color) => {};
-  saveColor(settings.themeColor);
-}
-saveSettings1({
-  followAlert: true,
-  unfollowAlert: true,
-  mrkAler: true,
-  themeColor: "green",
-});
+const follow = checkFollow();
+const alert = checkAlert();
 
 /**
- * 이처럼 불명확한 인수대신 명확하고 가독성이 좋으며 기본값도 설정
- * 가능한 function destructureing을 사용하게 된다.
+ * 위의 변수이름을 아래 오브젝트 요소의 값으로 넣고있다.
  */
-function saveSettings2({ follow, alert, color = "blue" }) {
-  console.log(color);
-}
-saveSettings2({
-  follow: true,
-  alert: true,
-});
+const settings1 = {
+  notificationss: {
+    follow: follow,
+    alert: alert,
+  },
+};
 
-function saveSettings3({ notifications, color: { theme } }) {
-  console.log(theme);
-}
-saveSettings3({
-  notifications: {
-    follow: true,
-    alert: true,
-    mkt: false,
+/**
+ * shorthand property를 이용하여 요소이름과 변수이름을 합쳐서
+ * 요소이름과 값을 동시에 정의한다.
+ */
+const settings2 = {
+  notificationss: {
+    follow,
+    alert,
   },
-  color: {
-    theme: "dark",
+};
+/**
+ * 물론 요소이름을 변수이름과 다르게 하여 사용할 수 있다.
+ */
+const settings3 = {
+  notificationss: {
+    isFollow: follow,
+    isAlert: alert,
   },
-});
+};

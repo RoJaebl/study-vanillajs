@@ -1,35 +1,26 @@
-/**
- * killPassword의 정의를 `desturcturing과 rest을 이용`하여 password
- * 요소를 제외하고 오브젝트를 반환한다.
- * @description
- * `desturcturing + rest`
- */
-const user = {
-  name: "nico",
-  age: 24,
-  password: 12345,
-};
+const friends = ["nico", "lynn", "dar", "mark"];
 
-user["password"] = null;
-console.log(user);
+for (let i = 0; i < 20; i++) {
+  console.log("I love `Kimchi`");
+}
 
-const killPassword = ({ password, ...args }) => args;
-const cleanUser = killPassword(user);
-console.log(cleanUser);
+for (let i = 0; i < friends.length; i++) {
+  console.log(`${friends[i]} love \`Kimchi\``);
+}
+
+const addHeart = (...args) => console.log(args);
+friends.forEach(addHeart);
 
 /**
- * 이번엔 desturcturing default value와 rest, spread르 이용하여
- * 오브젝트 요소를 추가하였다.
+ * for of는 forEach와 다르게 string, array, NodeLists,
+ * typed array, map, set에서 사용할 수 있다. forEach는
+ * array에서만 사용이 가능하다. 또한 break 키워드를 사용하여
+ * `원하는 위치까지 반복문을 실행`하고 빠져 나올 수 있다.
  */
-const setCountry = ({ country = "KR", ...args }) => ({ country, ...args });
-
-console.log(setCountry(user));
-console.log(setCountry({ country: "US", user }));
-console.log(setCountry({ country: "US", ...user }));
-
-/**
- * 위의 예제에서 renamming을 추가한 하였다.
- */
-const rename = ({ name: Name, ...args }) => ({ Name, ...args });
-
-console.log(rename(user));
+for (const friend of friends) {
+  if (friend === "dar") {
+    break;
+  } else {
+    console.log(friend);
+  }
+}

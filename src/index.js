@@ -1,30 +1,43 @@
 /**
- * 외부 API로부터 데이터를 아래와 같이 받아왔는데 요소의 이름이
- * 마음에 안들면 `콜론:`을 붙혀 rename을 해줄 수 있다.
+ * object로 함수 인자로 전달하는 것은 매우 불안정 하다. 전달된 인수의
+ * 요소를 가지고 기능을 구현한다는 가정하에 함수를 호출하는데 해당
+ * 요소가 없다면 에러가 발생할 것이다.
  */
-const settings = {
-  color: {
-    chosen_color: "dark",
-  },
-};
-
-const {
-  color: { chosen_color: chosenColor1 = "light" },
-} = settings;
-
-console.log(chosenColor1);
+function saveSettings1(settings) {
+  if (!settings.mrkAler) {
+  }
+  const saveColor = (color) => {};
+  saveColor(settings.themeColor);
+}
+saveSettings1({
+  followAlert: true,
+  unfollowAlert: true,
+  mrkAler: true,
+  themeColor: "green",
+});
 
 /**
- * object destructuring은 let으로도 선언할 수 있지만 따로 변수를
- * 선언하여 destructuring을 사용하는 방법으로는 destructuring에
- * `소괄호()`를 붙혀 따로 선언한 변수를 renmae으로 사용하는 것이다.
- * 그러면 선언한 변수는 rename에 들어가는 데이터로 값이 바뀐걸 볼 수
- * 있다.
+ * 이처럼 불명확한 인수대신 명확하고 가독성이 좋으며 기본값도 설정
+ * 가능한 function destructureing을 사용하게 된다.
  */
-let chosenColor2 = "blue";
-console.log(chosenColor2);
+function saveSettings2({ follow, alert, color = "blue" }) {
+  console.log(color);
+}
+saveSettings2({
+  follow: true,
+  alert: true,
+});
 
-({
-  color: { chosen_color: chosenColor2 = "light" },
-} = settings);
-console.log(chosenColor2);
+function saveSettings3({ notifications, color: { theme } }) {
+  console.log(theme);
+}
+saveSettings3({
+  notifications: {
+    follow: true,
+    alert: true,
+    mkt: false,
+  },
+  color: {
+    theme: "dark",
+  },
+});

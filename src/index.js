@@ -1,21 +1,23 @@
 /**
- * resolve는 JS에게 작업한 값을 전달하는 callback param이고
- * reject는 JS에게 에러를 알려주는 callback param이다.
- * @decription
- * Promise가 시작되면 JS는 호출되는 시점에서 값이 반환되기까지
- * 기다린다. 그리고 resolve를 실행시켜 함수를 완료한다.
- *
- * 아래 코드는 resolve로 promise반환을 정의하고 setInterval로
- * promise를 지속적으로 호출하여 결과값을 받는다.
+ * then으로 전달된 인수는 promise에 처리한 resolve와 recject의
+ * 값을 전달 받는다.
  */
-const amISexy = new Promise((resolve, reject) => {
-  setTimeout(resolve, 3000, `Yes you are`);
+const amISexy1 = new Promise((resolve, reject) => {
+  resolve(`Yes you are!`);
 });
-/**
- * console.log로 amISexy의 setTimeout을 동작시키고 그다음
- * setInterval을 지속적으로 호출하여 setTimeout의 결과값을
- * 받아서 반환한다.
- */
-console.log(amISexy);
 
-setInterval(console.log, 1000, amISexy);
+amISexy1.then((value) => console.log(value));
+
+/**
+ * reject만 쓰이면 JS에서 에러를 반환한다. 그렇기에 에러를
+ * catch하여 에러에 관한 처리소스를 구현해야한다. 여기서 then과
+ * catch가 함수로 보여서 then실행 후 cath가 실행되는거라 생각
+ * 되지만, 실상 두 함수는 서로 각각 동작을 한다.
+ * JS는 다른작업이 딜레이걸리면 다른 작업을 실행하는 시스템
+ * 이기에 함수 디자인을 JS시스템을 고려하여 구현해야한다.
+ */
+const amISexy2 = new Promise((resolve, reject) => {
+  setTimeout(reject, 3000, `Yes are ugly`);
+});
+
+amISexy2.then((result) => console.log(result)).catch((err) => console.log(err));

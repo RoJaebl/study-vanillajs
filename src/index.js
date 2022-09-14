@@ -1,17 +1,18 @@
 /**
- * async/await말고도 promise와 함께 사용했었던 catch와
- * finally를 아래와 같이 사용할 수 있다. catch는 try구문
- * 안에 들어가 있는 모든 소스에서 에러가 발생했을때 발생한
- * 에러 인자를 catch로 전달하여 예외를 처리할 수 있게 한다.
- * 또한 try와 catch다음으로 동작하는 finally로 미자막으로
- * 꼭 실행해야하는 소스코드를 추가함으로서 promise가 사용
- * 했었던 모든 기능을 구현할 수 있다.
+ * API 두개를 병렬로 불러와 구현하는 방법으로 await와 함께 Promise.all을
+ * 사용하여 한번에 처리하는 방법이 있다.
  */
 const getMoviesAsync = async () => {
   try {
-    const response = await fetch("https://yts.mx/api/v2/list_movies.json");
-    const json = await response.json();
-    throw Error("Im hungry");
+    const [moviesResponse, suggestionsResponse] = await Promise.all([
+      fetch("https://yts.mx/api/v2/list_movies.json"),
+      fetch("https://yts.mx/api/v2/movie_suggestions.json?movie_id=100"),
+    ]);
+    const [movies, suggestions] = await Promise.all([
+      moviesResponse.json(),
+      suggestionsResponse.json(),
+    ]);
+    console.log(movies, suggestions);
   } catch (err) {
     console.log(`❌ ${err}`);
   } finally {

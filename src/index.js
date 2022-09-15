@@ -1,11 +1,6 @@
-/**
- * 이전 User class의 기능을 확장하여 아래와 같이 함수를 정의하였다.
- * 이처럼 class는 확장 및 유지보수도 쉽고 코드가 더 늘었음에도 정돈된
- * 모습을 볼 수 있다.
- */
 class User {
-  constructor(name, lastName, email, password) {
-    this.username = name;
+  constructor({ username, lastName, email, password }) {
+    this.username = username;
     this.lastName = lastName;
     this.email = email;
     this.password = password;
@@ -25,24 +20,35 @@ class User {
   }
 }
 
-const sexyUser = new User("Nico", "Serrano", "nico@com", "1234");
-
-sexyUser.getProfile();
-console.log(sexyUser.password);
-
-sexyUser.updatePassword("hello", "111111");
-console.log(sexyUser.password);
+const sexyUser = new User({
+  username: "Nico",
+  lastName: "Serrano",
+  email: "nico@com",
+  password: "1234",
+});
 
 /**
- * 이번엔 User class를 확장하여 Admin class를 정의한 것이다. 여기서
- * Admin은 User본연의 기능을 유지하면서 Admin만이 가지는 기능을 정의한다.
+ * 자식 class안에 생성자를 다시 정의하면 부모 class의
+ * 생성자를 잃게 된다. 부모 생성자도 사용하기 위해서는
+ * 자식 class 생성자안에 `super()`라는 함수를 호출한다.
+ * `super()`함수는 부모 class의 생성자를 호출한다.
  */
 class Admin extends User {
+  constructor({ username, lastName, email, password, superAdmin, isActive }) {
+    super({ username, lastName, email, password });
+    this.superAdmin = superAdmin;
+    this.isActive = isActive;
+  }
   deleteWebsite() {
     console.log("Deleting the whole website...");
   }
 }
 
-const sexyAdmin = new Admin("Nico", "Serrano", "nico@com", "1234");
-sexyAdmin.deleteWebsite();
-console.log(sexyAdmin.email);
+const admin = new Admin({
+  username: "Nico",
+  lastName: "Serrano",
+  email: "nico@com",
+  password: "1234",
+  superAdmin: true,
+  isActive: true,
+});

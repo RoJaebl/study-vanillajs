@@ -1,49 +1,28 @@
 /**
- * HTML과 연동되는 class를 작성하여 calss의 조직적이고 편리한
- * 기능을 체감해보도록 하자.
- *
+ * Generators를 사용하는 방법은 function뒤에 `*`을 달아주면 된다.
+ * `yield`로 return과 비슷한 작업을 수행 할 수 있다.
  */
-class Counter {
-  constructor({ initialNumber = 0, counterId, plusId, minusId }) {
-    this.count = initialNumber;
-    this.counter = document.getElementById(counterId);
-    this.counter.innerText = initialNumber;
-    this.plusBtn = document.getElementById(plusId);
-    this.minusBtn = document.getElementById(minusId);
-    this.addEventListeners();
-  }
-  addEventListeners = () => {
-    this.plusBtn.addEventListener("click", this.increase);
-    this.minusBtn.addEventListener("click", this.decrease);
-  };
-  /**
-   * HTML element 함수로 호출된 함수는 일반함수로 사용할 경우
-   * this의 형태가 class가 아닌 HTML element의 정보를 가져올
-   * 것이다.
-   * 이것은 JS의 기본동작이며 일반함수는 자신을 호출한 객체의
-   * 정보를 this에게 전달하기 때문이다. 그렇기에 객체의 정보를
-   * 전달하지 않는 arrow function으로 this를 class를 참조
-   * 하도록 설정한다.
-   * 그리고 앞으로 calss의 모든 function을 arrow function으로
-   * 정의하는 것이 좋다.
-   */
-  increase = () => {
-    this.count = this.count + 1;
-    this.repaintCount();
-  };
-  decrease = () => {
-    this.count = this.count - 1;
-    this.repaintCount();
-  };
-  repaintCount = () => {
-    this.counter.innerText = this.count;
-  };
+function* listPeople() {
+  yield "Dal";
+  yield "Flynn";
+  yield "Mark";
+  yield "Godkimchi";
+  yield "Japan Guy";
 }
 
-new Counter({ counterId: "count1", plusId: "add1", minusId: "minus1" });
-new Counter({
-  counterId: "count2",
-  plusId: "add2",
-  minusId: "minus2",
-  initialNumber: 44,
-});
+/**
+ * Generators를 호출하면 yield와 관련된 데이터가 출력되지 않는데
+ * `.next()`를 호출하여 yield순서대로 지정한 데이터에 접근할 수 있다.
+ */
+const listG = listPeople();
+
+/**
+ * yield를 반복문안에 정의하여 다양한 방법으로 yield를 호출할 수 있다.
+ */
+const friends = ["Dal", "Flynn", "Mark", "Godkimchi", "Japan Guy"];
+function* friendTeller() {
+  for (const friend of friends) {
+    yield friend;
+  }
+}
+const friendLooper = friendTeller();
